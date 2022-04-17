@@ -1,0 +1,28 @@
+version: "3"
+services:
+  rails:
+    container_name: rails
+    build: 
+      context: .
+      dockerfile: Dockerfile_rails
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3001 -b '0.0.0.0'"
+    volumes:
+      - ./src:/src
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+
+  
+  postgres:
+    container_name: postgres
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    restart: always
+
+ 

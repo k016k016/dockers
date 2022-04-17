@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  scrapy:
+    container_name: scrapy
+    build:
+      context: ./py3
+      dockerfile: Dockerfile
+    restart: always
+    entrypoint: >
+      jupyter-lab
+      --allow-root
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --NotebookApp.token=''
+      --notebook-dir=/workspace
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./py3/root_jupyter:/root/.jupyter
+      - ./workspace:/workspace
+    tty: true
+    # depends_on:
+    #       - splash
+
+
+
+  # proxy_bright:
+  #   image: luminati/luminati-proxy
+  #   restart: always
+  #   entrypoint: proxy-manager --www_whitelist_ips "172.18.0.1" --ssl true
+  #   container_name: proxy 
+  #   ports:
+  #     - "24000:24000"
+  #     - "22225:22225"
+  #     - "22999:22999"
+    
+  # splash:
+  #   image: scrapinghub/splash
+  #   ports:
+  #     - "8050:8050"
+  #     # - "127.0.0.1:8050:8050"
+  #   command: --disable-private-mode
+  #   restart: always
+  #   container_name: splash 
+
