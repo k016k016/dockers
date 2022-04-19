@@ -18,7 +18,7 @@ npx create-next-app@latest .
 exit
 ---
 
-*edit docker-compose.yml 
+*if you use next.js then edit docker-compose.yml 
     command: sh -c "PORT=3000 npm run dev"
 
 
