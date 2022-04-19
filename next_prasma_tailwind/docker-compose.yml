@@ -1,0 +1,16 @@
+version: "3"
+services:
+
+  nextjs:
+    container_name: nextjs
+    build: 
+      context: .
+      dockerfile: Dockerfile_node
+    volumes:
+      - ./app:/usr/app:cached
+    command: sh -c "PORT=3000 npm run dev"
+    tty: true
+    ports:
+      - "3000:3000"
+    extra_hosts:
+      - "local_dev:192.168.2.106"
